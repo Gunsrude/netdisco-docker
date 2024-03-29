@@ -10,20 +10,20 @@ on:
 jobs:
   pre-build:
     runs-on: ubuntu-latest
-
+    
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
     - name: Get latest release version of netdisco
-      id: get_version
+      id: version
       run: |
         VERSION=$(curl -s https://api.github.com/repos/netdisco/netdisco/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
         echo "Latest version is $VERSION"
         echo "::set-output name=version::$VERSION"
-
-    env:
-      VERSION: ${{ steps.get_version.outputs.version }}
 
   docker-build:
     needs: pre-build
