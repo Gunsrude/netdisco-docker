@@ -35,17 +35,20 @@ RUN curl -sL -o /tmp/cpanm https://cpanmin.us/ && \
       REST::Client
 
 # REMCO
-FROM golang:alpine3.17 as build-remco
+FROM golang:alpine3.19 as build-remco
 
-RUN apk add --no-cache git && \
-    go install github.com/HeavyHorst/remco/cmd/remco@latest
+RUN apk add --no-cache git make && \
+      git clone https://github.com/HeavyHorst/remco && \
+      cd remco && make 
+# RUN apk add --no-cache git && \
+#     go install github.com/HeavyHorst/remco/cmd/remco@latest
 
 # Base image
 FROM alpine:latest
 
 RUN apk add --no-cache \
       ca-certificates \
-      curl \
+      # curl \
       openssh-client \
       tar \
       libc6-compat \
@@ -57,6 +60,10 @@ RUN apk add --no-cache \
       perl-ldap \
       postgresql-client \
       shadow && \
+      apk add --nocache \
+      --repository=https://dl-cdn.alpinelinux.org/alpine/edge/main \
+      linux-pam \
+      curl && \
       useradd -U -m -d /home/netdisco -s /bin/ash netdisco
 
 USER netdisco:netdisco
@@ -69,7 +76,7 @@ RUN for tgt in bin environments nd-site-local logs; \
       ln -s /dev/stdout /home/netdisco/logs/netdisco.log
 
 # Get remco
-COPY --from=build-remco /go/bin/remco /bin/remco
+COPY --from=build-remco /go/remco/bin/remco /bin/remco
 ADD remco /etc/remco
 
 WORKDIR /home/netdisco

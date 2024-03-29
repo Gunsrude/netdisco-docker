@@ -1,16 +1,14 @@
 version: '3.9'
 
 networks:
-  nd_front:
-  nd_back:
+  nd_frontend:
+  nd_backend:
 
 services:
   db:
     image: netdisco/netdisco:${NETDISCO_VERSION}-postgresql
-    build:
-      context: nd-psql
     networks:
-      - nd_back
+      - nd_backend
     restart: unless-stopped
     volumes:
       - ${PWD}/files/pgdata:/var/lib/postgresql/data
@@ -26,7 +24,7 @@ services:
       - db
     image: "stelliferrous/netdisco:${NETDISCO_VERSION}"
     networks:
-      - nd_back
+      - nd_backend
     restart: unless-stopped
     environment:
       END: "backend"
@@ -37,8 +35,8 @@ services:
       - nd-base
     image: "stelliferrous/netdisco:${NETDISCO_VERSION}"
     networks:
-      - nd_front
-      - nd_back
+      - nd_frontend
+      - nd_backend
     restart: unless-stopped
     environment:
       END: "frontend"
