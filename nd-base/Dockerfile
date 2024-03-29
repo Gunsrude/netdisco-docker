@@ -46,9 +46,12 @@ RUN apk add --no-cache git make && \
 # Base image
 FROM alpine:latest
 
-RUN apk add --no-cache \
+RUN   apk add --no-cache \
+      --repository=https://dl-cdn.alpinelinux.org/alpine/edge/main \
+      linux-pam \
+      curl && \
+      apk add --no-cache \
       ca-certificates \
-      # curl \
       openssh-client \
       tar \
       libc6-compat \
@@ -60,10 +63,6 @@ RUN apk add --no-cache \
       perl-ldap \
       postgresql-client \
       shadow && \
-      apk add --nocache \
-      --repository=https://dl-cdn.alpinelinux.org/alpine/edge/main \
-      linux-pam \
-      curl && \
       useradd -U -m -d /home/netdisco -s /bin/ash netdisco
 
 USER netdisco:netdisco
