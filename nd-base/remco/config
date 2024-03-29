@@ -1,0 +1,17 @@
+log_level = "debug"
+log_format = "text"
+
+[default_backends]
+[default_backends.env]
+  onetime = true
+  keys = [ "/nd" ]
+
+[[resource]]
+name = "netdisco"
+
+  [resource.exec]
+    command = "${END}.sh"
+
+[[resource.template]]
+  src = "/etc/remco/templates/deployment.yml"
+  dst = "/home/netdisco/lib/perl5/auto/share/dist/App-Netdisco/environments/deployment.yml"
