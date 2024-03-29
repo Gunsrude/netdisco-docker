@@ -23,7 +23,7 @@ jobs:
       run: |
         VERSION=$(curl -s https://api.github.com/repos/netdisco/netdisco/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
         echo "Latest version is $VERSION"
-        run: echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+        echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
 
   docker-build:
     needs: pre-build
