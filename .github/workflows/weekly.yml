@@ -16,14 +16,14 @@ jobs:
     
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@main
 
     - name: Get latest release version of netdisco
       id: version
       run: |
         VERSION=$(curl -s https://api.github.com/repos/netdisco/netdisco/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
         echo "Latest version is $VERSION"
-        echo "::set-output name=version::$VERSION"
+        run: echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
 
   docker-build:
     needs: pre-build
