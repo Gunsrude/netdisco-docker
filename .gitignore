@@ -1,2 +1,3 @@
 files/pgdata
 docker-compose.override.yaml
+.env 

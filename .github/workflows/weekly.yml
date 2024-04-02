@@ -53,6 +53,6 @@ jobs:
           push: true
           tags: |
             stelliferrous/netdisco:latest
-            stelliferrous/netdisco:${{ needs.pre-build.outputs.version }}
+            stelliferrous/netdisco:${{ needs.pre-build.outputs.version }}-weekly
           build-args: |
             VERSION=${{ needs.pre-build.outputs.version }}
