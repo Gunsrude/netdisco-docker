@@ -12,6 +12,8 @@ RUN apk add --no-cache \
       gcc \
       git \
       libc6-compat \
+      musl-dev \
+      musl-obstack-dev \
       make \
       net-snmp-perl \
       openssl-dev \
@@ -48,20 +50,25 @@ FROM alpine:latest
 
 RUN   apk add --no-cache \
       --repository=https://dl-cdn.alpinelinux.org/alpine/edge/main \
-      linux-pam \
-      curl && \
-      apk add --no-cache \
-      ca-certificates \
-      openssh-client \
-      tar \
       libc6-compat \
+      musl-dev \
+      musl-obstack-dev \
       net-snmp-perl \
+      expect \
+      expect-dev \
       perl-crypt-rijndael \
       perl-dbd-pg \
-      perl-encode \
       perl-io-socket-ssl \
       perl-ldap \
+      perl-json \
+      perl-lwp-protocol-https \
+      perl-file-slurp \
+      perl-regexp-common \
+      perl-regexp-common-net-cidr \
+      perl-regexp-ipv6 \
+      perl-file-sharedir \
       postgresql-client \
+      tzdata \
       shadow && \
       useradd -U -m -d /home/netdisco -s /bin/ash netdisco
 

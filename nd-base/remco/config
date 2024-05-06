@@ -10,7 +10,7 @@ log_format = "text"
 name = "netdisco"
 
   [resource.exec]
-    command = "${END}.sh"
+    command = "./bin/${END}.sh"
 
 [[resource.template]]
   src = "/etc/remco/templates/deployment.yml"

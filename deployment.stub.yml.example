@@ -1,0 +1,55 @@
+device_auth:
+  - community: public
+  - community: publictwo
+  - community: mycommunity
+    write: true
+  - community: mycommunity2
+    read: false
+    write: true
+  - tag: v3example
+    user: netdisco
+    auth:
+      pass: netdiscokey
+      proto: MD5
+    priv:
+      pass: netdiscokey2
+      proto: DES
+  - tag: aclexample
+    community: s3kr1t
+    read: false
+    write: true
+    only:
+      - 192.0.2.0/30
+      - 172.20.10.0/24
+    no: '172.20.10.1'
+  - tag: sshexample
+    driver: cli
+    platform: Linux
+    only: 192.0.2.1
+    username: oliver
+    password: letmein
+    ssh_master_opts:
+        - "-o"
+        - "StrictHostKeyChecking=no"
+
+discover_waps: true
+discover_phones: false
+
+schedule:
+  discoverall:
+    when: '5 7 * * *'
+  macwalk:
+    when:
+      min: 20
+  arpwalk:
+    when:
+      min: 50
+  nbtwalk:
+    when: '0 8,13,21 * * *'
+  expire:
+    when: '30 23 * * *'
+
+workers:
+  tasks: 'AUTO * 2'
+dns:
+  max_outstanding: 50
