@@ -77,6 +77,8 @@ USER netdisco:netdisco
 COPY --chown=netdisco:netdisco --from=nd-build /home/netdisco /home/netdisco/
 ADD --chown=netdisco:netdisco scripts /home/netdisco/bin
 
+RUN chmod +x /home/netdisco/bin/*
+
 RUN for tgt in bin environments nd-site-local logs; \
       do mkdir /home/netdisco/$tgt; done && \
       ln -s /dev/stdout /home/netdisco/logs/netdisco.log
