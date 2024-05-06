@@ -50,6 +50,7 @@ FROM alpine:latest
 
 RUN   apk add --no-cache \
       --repository=https://dl-cdn.alpinelinux.org/alpine/edge/main \
+      curl \
       libc6-compat \
       musl-dev \
       musl-obstack-dev \
