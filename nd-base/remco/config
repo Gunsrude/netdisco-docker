@@ -11,7 +11,3 @@ name = "netdisco"
 
   [resource.exec]
     command = "./bin/${END}.sh"
-
-[[resource.template]]
-  src = "/etc/remco/templates/deployment.yml"
-  dst = "/home/netdisco/lib/perl5/auto/share/dist/App-Netdisco/environments/deployment.yml"
