@@ -22,7 +22,8 @@ services:
   nd-backend:
     depends_on:
       - db
-    image: "stelliferrous/netdisco:${NETDISCO_VERSION}"
+    image: "stelliferrous/netdisco:${NETDISCO_VERSION}-weekly"
+    # image: "ndbuild"
     # volumes:
     #   - ${PWD}/deployment.stub.yml:/deployment.stub.yml
     networks:
@@ -30,12 +31,15 @@ services:
     restart: unless-stopped
     environment:
       END: "backend"
+      NETDISCO_DOMAIN: discover
+      NETDISCO_DB_HOST: db
 
   nd-frontend:
     depends_on:
       - db
-      - nd-base
-    image: "stelliferrous/netdisco:${NETDISCO_VERSION}"
+      - nd-backend
+    image: "stelliferrous/netdisco:${NETDISCO_VERSION}-weekly"
+    # image: "ndbuild"
     # volumes:
     #   - ${PWD}/deployment.stub.yml:/deployment.stub.yml
     networks:
@@ -44,6 +48,8 @@ services:
     restart: unless-stopped
     environment:
       END: "frontend"
+      NETDISCO_DOMAIN: discover
+      NETDISCO_DB_HOST: db
     ports:
       - 5000:5000
     
